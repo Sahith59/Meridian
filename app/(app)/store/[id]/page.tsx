@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { ArrowLeft, FileText, Store as StoreIcon, UserRound } from "lucide-react";
 import { statusFor } from "@/lib/orderStatus";
 import StatusPill from "@/components/StatusPill";
 
@@ -52,26 +53,47 @@ export default function StoreOrderViewerPage() {
 
   return (
     <div className="container wide">
-      <p>
-        <a href="/store">&larr; Store</a>
-      </p>
+      <a className="back-link" href="/store">
+        <ArrowLeft size={15} /> Store
+      </a>
 
-      {error && <p className="error" style={{ marginTop: "1rem" }}>{error}</p>}
+      {error && <p className="error error-card">{error}</p>}
 
       {order && (
         <div className="viewer-layout">
           <div className="viewer-main">
             <div className="viewer-title-row">
-              <h2 style={{ margin: 0, fontSize: "1.25rem" }}>Order {order.id}</h2>
-              <span className="row" style={{ gap: "0.5rem" }}>
+              <div>
+                <p className="eyebrow">Merchant record</p>
+                <h2>Order {order.id}</h2>
+              </div>
+              <span className="row compact-row">
                 <StatusPill status={statusFor(order.id)} />
                 <span className="pill">{order.summary.split(" - ")[1]}</span>
               </span>
+            </div>
+            <div className="order-strip">
+              <div>
+                <UserRound size={16} />
+                <span>Customer</span>
+                <strong>{order.customerId}</strong>
+              </div>
+              <div>
+                <StoreIcon size={16} />
+                <span>Tenant</span>
+                <strong>{order.storeId}</strong>
+              </div>
+              <div>
+                <FileText size={16} />
+                <span>Record</span>
+                <strong>{order.id}</strong>
+              </div>
             </div>
             <pre className="receipt">{order.receipt}</pre>
           </div>
 
           <div className="viewer-rail">
+            <div className="rail-badge">Store workspace</div>
             <div className="rail-field">
               <div className="rail-label">Customer</div>
               <div className="rail-value">{order.customerId}</div>

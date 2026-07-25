@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { Package } from "lucide-react";
+import { ArrowRight, Package, ReceiptText, Store as StoreIcon, UsersRound, WalletCards } from "lucide-react";
 import { getCurrentUserFromCookieStore } from "@/lib/session";
 import { store } from "@/lib/store";
 import { ensureSeeded } from "@/lib/seed";
@@ -41,30 +41,38 @@ export default async function DashboardPage() {
 
   return (
     <div className="container wide">
-      <div className="page-head">
+      <div className="page-head command-head">
         <div>
           <p className="eyebrow">Dashboard</p>
           <h1>Welcome back, {user.name}</h1>
-          <p className="page-sub">{home?.name ?? "No store"}</p>
+          <p className="page-sub">{home?.name ?? "No store"} order desk and account activity.</p>
+        </div>
+        <div className="head-note">
+          <span>{isStaff ? "Operator session" : "Customer session"}</span>
+          <strong>{user.id}</strong>
         </div>
       </div>
 
       <div className="stat-grid">
         <div className="stat-card">
+          <ReceiptText size={18} />
           <div className="stat-label">Your orders</div>
           <div className="stat-value">{myOrders.length}</div>
         </div>
         <div className="stat-card gold">
+          <WalletCards size={18} />
           <div className="stat-label">Your spend</div>
           <div className="stat-value">${mySpend.toFixed(0)}</div>
         </div>
         {isStaff && (
           <>
             <div className="stat-card">
+              <UsersRound size={18} />
               <div className="stat-label">Store members</div>
               <div className="stat-value">{teammateCount}</div>
             </div>
             <div className="stat-card info">
+              <StoreIcon size={18} />
               <div className="stat-label">Store revenue</div>
               <div className="stat-value">${storeRevenue.toFixed(0)}</div>
             </div>
@@ -72,17 +80,37 @@ export default async function DashboardPage() {
         )}
       </div>
 
-      <div className="card">
-        <p className="section-title">
-          Orders by week{isStaff ? `, ${home?.name ?? "your store"}` : ""}
-        </p>
-        <BarChart data={chartData} />
+      <div className="workspace-grid">
+        <section className="card analytics-card">
+          <div className="card-kicker">Order cadence</div>
+          <h3>Weekly movement{isStaff ? ` at ${home?.name ?? "your store"}` : ""}</h3>
+          <BarChart data={chartData} />
+        </section>
+
+        <section className="card action-card">
+          <div className="card-kicker">Next step</div>
+          <h3>{isStaff ? "Review store queue" : "Open your receipts"}</h3>
+          <p className="hint">
+            {isStaff
+              ? "Monitor recent orders, customer handoffs, and internal fulfillment state."
+              : "Check receipts, delivery notes, and protected invoice access from your account."}
+          </p>
+          <a className="btn" href={isStaff ? "/store" : "/orders"}>
+            Continue <ArrowRight size={15} />
+          </a>
+        </section>
       </div>
 
-      <p className="section-title" style={{ marginTop: "1.5rem" }}>
-        {isStaff ? `Recent at ${home?.name ?? "your store"}` : "Your recent orders"}
-      </p>
-      <div className="card tight">
+      <section className="card tight table-card">
+        <div className="table-toolbar">
+          <div>
+            <p className="section-title">{isStaff ? `Recent at ${home?.name ?? "your store"}` : "Your recent orders"}</p>
+            <h3>Activity feed</h3>
+          </div>
+          <a className="btn secondary btn-sm" href="/orders">
+            View all
+          </a>
+        </div>
         <table className="data-table">
           <thead>
             <tr>
@@ -127,9 +155,9 @@ export default async function DashboardPage() {
             })}
           </tbody>
         </table>
-      </div>
+      </section>
 
-      <p className="row" style={{ marginTop: "1.25rem" }}>
+      <p className="row page-actions">
         <a className="btn" href="/orders">
           Go to My Orders
         </a>

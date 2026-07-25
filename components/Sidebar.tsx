@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  BadgeCheck,
   LayoutDashboard,
   Package,
   Store as StoreIcon,
@@ -87,6 +88,10 @@ export default function Sidebar({ user }: { user: NavUser }) {
       {user ? (
         <>
           <nav className="sidebar-nav">
+            <div className="sidebar-context">
+              <span>Commerce desk</span>
+              <strong>{user.role === "staff" ? "Operator access" : "Customer access"}</strong>
+            </div>
             <Group label="Shop" links={SHOP_LINKS} pathname={pathname} />
             <Group
               label="Store"
@@ -101,7 +106,10 @@ export default function Sidebar({ user }: { user: NavUser }) {
               <span className="avatar">{initials(user.name)}</span>
               <span className="sidebar-user-info">
                 <strong>{user.name}</strong>
-                {user.role === "staff" && <span className="badge admin">Staff</span>}
+                <span className={user.role === "staff" ? "badge admin" : "badge"}>
+                  <BadgeCheck size={11} />
+                  {user.role === "staff" ? "Staff" : "Member"}
+                </span>
               </span>
             </div>
             <button className="sidebar-logout" onClick={logout}>

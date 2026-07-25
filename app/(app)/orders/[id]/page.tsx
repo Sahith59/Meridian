@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { ArrowLeft, FileText, ShieldCheck, Truck } from "lucide-react";
 import { statusFor } from "@/lib/orderStatus";
 import StatusPill from "@/components/StatusPill";
 
@@ -13,6 +14,7 @@ type Order = {
   storeId: string;
   createdAt: string;
   receipt: string;
+  receiptPath?: string;
 };
 
 export default function OrderViewerPage() {
@@ -64,12 +66,12 @@ export default function OrderViewerPage() {
 
   return (
     <div className="container wide">
-      <p>
-        <a href="/orders">&larr; My Orders</a>
-      </p>
+      <a className="back-link" href="/orders">
+        <ArrowLeft size={15} /> My Orders
+      </a>
 
       {error && (
-        <div className="card" style={{ marginTop: "1rem" }}>
+        <div className="card error-card">
           <p className="error">{error}</p>
         </div>
       )}
@@ -78,11 +80,32 @@ export default function OrderViewerPage() {
         <div className="viewer-layout">
           <div className="viewer-main">
             <div className="viewer-title-row">
-              <h2 style={{ margin: 0, fontSize: "1.25rem" }}>Order {order.id}</h2>
-              <span className="row" style={{ gap: "0.5rem" }}>
+              <div>
+                <p className="eyebrow">Order record</p>
+                <h2>Order {order.id}</h2>
+              </div>
+              <span className="row compact-row">
                 <StatusPill status={statusFor(order.id)} />
                 <span className="pill">{order.summary.split(" - ")[1]}</span>
               </span>
+            </div>
+
+            <div className="order-strip">
+              <div>
+                <Truck size={16} />
+                <span>Fulfillment</span>
+                <strong>{statusFor(order.id)}</strong>
+              </div>
+              <div>
+                <FileText size={16} />
+                <span>Receipt</span>
+                <strong>{order.receiptPath ?? "Attached"}</strong>
+              </div>
+              <div>
+                <ShieldCheck size={16} />
+                <span>Session</span>
+                <strong>Signed cookie</strong>
+              </div>
             </div>
 
             <div className="note-field">
@@ -100,6 +123,7 @@ export default function OrderViewerPage() {
           </div>
 
           <div className="viewer-rail">
+            <div className="rail-badge">Private order</div>
             <div className="rail-field">
               <div className="rail-label">Customer</div>
               <div className="rail-value">{order.customerId}</div>

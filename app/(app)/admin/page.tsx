@@ -6,7 +6,7 @@
 // nothing checks who walks through it.
 
 import { useEffect, useState } from "react";
-import { Package } from "lucide-react";
+import { Package, ShieldAlert } from "lucide-react";
 import { statusFor } from "@/lib/orderStatus";
 import StatusPill from "@/components/StatusPill";
 
@@ -32,18 +32,31 @@ export default function AdminPage() {
 
   return (
     <div className="container wide">
-      <div className="page-head">
+      <div className="page-head command-head danger-head">
         <div>
           <p className="eyebrow">Admin console</p>
           <h1>All orders</h1>
-          <p className="page-sub">Every order across every customer and store.</p>
+          <p className="page-sub">Privileged order visibility across every customer and store.</p>
+        </div>
+        <div className="head-note">
+          <span>Privileged route</span>
+          <strong>/api/admin/orders</strong>
         </div>
       </div>
 
       {error && <p className="error">{error}</p>}
 
       {orders && (
-        <div className="card tight">
+        <div className="card tight table-card">
+          <div className="table-toolbar">
+            <div>
+              <p className="section-title">Administration</p>
+              <h3>Global order register</h3>
+            </div>
+            <span className="doc-icon alert">
+              <ShieldAlert size={15} />
+            </span>
+          </div>
           <table className="data-table">
             <thead>
               <tr>

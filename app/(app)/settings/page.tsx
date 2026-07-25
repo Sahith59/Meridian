@@ -8,6 +8,7 @@
 // snippets.
 
 import { useEffect, useState } from "react";
+import { BadgeDollarSign, Mail, ShieldCheck, UserRound } from "lucide-react";
 
 type Profile = { id: string; email: string; name: string; role: string; storeCredit: number };
 
@@ -42,26 +43,44 @@ export default function SettingsPage() {
     }
   }
 
-  if (!profile) return <div className="container">Loading...</div>;
+  if (!profile) return <div className="container"><div className="card">Loading account workspace...</div></div>;
 
   return (
     <div className="container">
-      <h1>Settings</h1>
-      <div className="card">
-        <p className="hint">
-          Email: <code>{profile.email}</code> &middot; Role: <code>{profile.role}</code> &middot; Store
-          credit: <code>${profile.storeCredit.toFixed(2)}</code>
-        </p>
+      <div className="page-head command-head">
+        <div>
+          <p className="eyebrow">Account</p>
+          <h1>Settings</h1>
+          <p className="page-sub">Profile details for the current Meridian session.</p>
+        </div>
+      </div>
+
+      <div className="settings-grid">
+        <div className="card profile-card">
+          <span className="avatar profile-avatar">{profile.name.slice(0, 2).toUpperCase()}</span>
+          <h3>{profile.name}</h3>
+          <p className="hint">{profile.email}</p>
+          <div className="profile-facts">
+            <span><Mail size={14} /> {profile.id}</span>
+            <span><ShieldCheck size={14} /> {profile.role}</span>
+            <span><BadgeDollarSign size={14} /> ${profile.storeCredit.toFixed(2)} credit</span>
+          </div>
+        </div>
+
+        <div className="card settings-card">
+          <div className="card-kicker">Display identity</div>
+          <h3>Public profile name</h3>
         <form className="stack" onSubmit={save}>
           <div>
             <label htmlFor="name">Display name</label>
             <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <button type="submit" disabled={busy}>
-            Save
+            <UserRound size={15} /> Save profile
           </button>
           {saved && <p className="hint">Saved.</p>}
         </form>
+        </div>
       </div>
     </div>
   );

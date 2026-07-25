@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { Package } from "lucide-react";
+import { Package, Store as StoreIcon } from "lucide-react";
 import { getCurrentUserFromCookieStore } from "@/lib/session";
 import { store } from "@/lib/store";
 import { ensureSeeded } from "@/lib/seed";
@@ -25,14 +25,28 @@ export default async function StorePage() {
 
   return (
     <div className="container wide">
-      <div className="page-head">
+      <div className="page-head command-head">
         <div>
           <p className="eyebrow">Store</p>
           <h1>{home?.name ?? "No store"}</h1>
+          <p className="page-sub">Staff order management for the active merchant workspace.</p>
+        </div>
+        <div className="head-note">
+          <span>Store orders</span>
+          <strong>{storeOrders.length}</strong>
         </div>
       </div>
 
-      <div className="card tight">
+      <div className="card tight table-card">
+        <div className="table-toolbar">
+          <div>
+            <p className="section-title">Fulfillment queue</p>
+            <h3>Merchant activity</h3>
+          </div>
+          <span className="doc-icon">
+            <StoreIcon size={15} />
+          </span>
+        </div>
         <table className="data-table">
           <thead>
             <tr>
@@ -61,8 +75,8 @@ export default async function StorePage() {
                     </a>
                   </td>
                   <td>
-                    <span className="row" style={{ gap: "0.4rem" }}>
-                      <span className="avatar" style={{ width: 22, height: 22, fontSize: "0.6rem" }}>
+                    <span className="row customer-chip">
+                      <span className="avatar mini-avatar">
                         {(customer?.name ?? "?").slice(0, 1).toUpperCase()}
                       </span>
                       <span className="cell-meta">{customer?.name ?? o.customerId}</span>

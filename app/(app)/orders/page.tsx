@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { Package } from "lucide-react";
+import { Package, ReceiptText } from "lucide-react";
 import { getCurrentUserFromCookieStore } from "@/lib/session";
 import { store } from "@/lib/store";
 import { ensureSeeded } from "@/lib/seed";
@@ -18,14 +18,28 @@ export default async function OrdersPage() {
 
   return (
     <div className="container wide">
-      <div className="page-head">
+      <div className="page-head command-head">
         <div>
           <p className="eyebrow">{home?.name ?? "Your store"}</p>
           <h1>My Orders</h1>
+          <p className="page-sub">Receipts, order status, and delivery notes for your account.</p>
+        </div>
+        <div className="head-note">
+          <span>Orders on file</span>
+          <strong>{mine.length}</strong>
         </div>
       </div>
 
-      <div className="card tight">
+      <div className="card tight table-card">
+        <div className="table-toolbar">
+          <div>
+            <p className="section-title">Customer ledger</p>
+            <h3>Recent purchases</h3>
+          </div>
+          <span className="doc-icon warm">
+            <ReceiptText size={15} />
+          </span>
+        </div>
         <table className="data-table">
           <thead>
             <tr>

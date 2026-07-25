@@ -22,15 +22,6 @@ tax, shipping address, masked card number - the math actually adds up).
 | Missing authorization | `GET /api/orders/[id]/receipt` | `GET /api/orders/[id]/invoice` |
 | (public, must never be flagged) | `GET /api/storefront` | - |
 
-## Seeded accounts
-
-| Email | Password | Store | Role | Owns |
-|---|---|---|---|---|
-| `alice@northwind.test` | `alice-pw` | Northwind Traders | customer | `ord_1`, `ord_2`, `ord_3` |
-| `bob@northwind.test` | `bob-pw` | Northwind Traders | customer | `ord_4`, `ord_5`, `ord_6` |
-| `dana@northwind.test` | `dana-pw` | Northwind Traders | **staff** | `ord_7`, `ord_8` |
-| `carol@bluebird.test` | `carol-pw` | Bluebird Goods | customer | `ord_9`, `ord_10`, `ord_11` |
-
 ## Run it
 
 ```bash
@@ -40,9 +31,9 @@ cp .env.local.example .env.local   # fill in BOLD_INGEST_URL / BOLD_INGEST_KEY, 
 npm run dev
 ```
 
-Open `http://localhost:3000`, log in as any seeded account above, and click around - this
-generates clean, normal traffic for BoLD to see as a baseline. `/storefront` is browsable with
-no login at all.
+Open `http://localhost:3000`, sign in with a demo account, and click around - this generates
+clean, normal traffic for BoLD to see as a baseline. `/storefront` is browsable with no login
+at all.
 
 > If seed data ever looks stale or wrong after editing `lib/seed.ts`, run `rm -rf .next` before
 > restarting `npm run dev` - Turbopack's build cache can otherwise serve an old compiled version.
@@ -181,7 +172,7 @@ BASE=http://localhost:3000
 # Log in as Bob and keep his session cookie
 curl -s -c bob.cookies -X POST $BASE/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"bob@northwind.test","password":"bob-pw"}' >/dev/null
+  -d "{\"email\":\"$DEMO_EMAIL\",\"password\":\"$DEMO_PASSWORD\"}" >/dev/null
 
 # --- BOLA: Bob reads Alice's private order (ord_1) ---
 echo "vulnerable:"; curl -s -b bob.cookies $BASE/api/orders/ord_1
@@ -211,9 +202,9 @@ curl -s $BASE/api/storefront
 rm -f bob.cookies
 ```
 
-(Restart `npm run dev` afterward, or log in as `dana@northwind.test` and use Settings to check
-Bob's account - the BOPLA attack above really does grant Bob store credit and the staff role,
-since the in-memory store has no separate "undo," this is a live app.)
+(Restart `npm run dev` afterward, or use a staff demo session and Settings to check the target
+account - the BOPLA attack above really does grant store credit and the staff role, since the
+in-memory store has no separate "undo," this is a live app.)
 
 ## What to check in BoLD afterward
 

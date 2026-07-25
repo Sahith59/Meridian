@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460" role="img" aria-label="Cast iron camp cookware set">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#d3d8c8"/>
+      <stop offset="1" stop-color="#314837"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="460" fill="url(#bg)"/>
+  <path d="M0 330c198-45 430-25 640-74v204H0z" fill="#12261f" opacity=".22"/>
+  <ellipse cx="326" cy="358" rx="212" ry="35" fill="#111611" opacity=".28"/>
+  <path d="M174 236h292c-10 86-63 128-146 128s-136-42-146-128z" fill="#1a1a17" stroke="#fff1d8" stroke-width="8"/>
+  <path d="M156 235h328M218 198c25-42 179-42 204 0" fill="none" stroke="#fff1d8" stroke-width="10" stroke-linecap="round"/>
+  <path d="M157 246l-62 36M483 246l62 36" stroke="#fff1d8" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="320" cy="286" r="38" fill="#34342e"/>
+</svg>

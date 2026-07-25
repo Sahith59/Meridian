@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460" role="img" aria-label="Classic denim jacket">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#c97458"/>
+      <stop offset="1" stop-color="#52251f"/>
+    </linearGradient>
+    <linearGradient id="denim" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#355f87"/>
+      <stop offset="1" stop-color="#17344d"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="460" fill="url(#bg)"/>
+  <circle cx="94" cy="90" r="150" fill="#fffaf0" opacity=".14"/>
+  <ellipse cx="330" cy="384" rx="190" ry="32" fill="#1d130f" opacity=".22"/>
+  <path d="M220 112l70 34h60l70-34 78 92-62 54v122H204V258l-62-54z" fill="url(#denim)" stroke="#f5d9bd" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M290 146l-36 76 66-36 66 36-36-76" fill="#244d70" stroke="#f5d9bd" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M320 186v190M236 250h55v54h-55zM349 250h55v54h-55z" stroke="#f5d9bd" stroke-width="7" fill="none"/>
+  <path d="M160 205l46 40M480 205l-46 40" stroke="#f5d9bd" stroke-width="7" stroke-linecap="round"/>
+</svg>

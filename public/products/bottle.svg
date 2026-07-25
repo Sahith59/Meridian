@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460" role="img" aria-label="Stainless steel water bottle">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#b7d8c3"/>
+      <stop offset="1" stop-color="#1d6b51"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" x2="1">
+      <stop stop-color="#f7f1e6"/>
+      <stop offset=".45" stop-color="#a7b5b4"/>
+      <stop offset="1" stop-color="#eef2ec"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="460" fill="url(#bg)"/>
+  <path d="M0 0h640v460H0z" fill="#0e352c" opacity=".08"/>
+  <ellipse cx="320" cy="385" rx="126" ry="26" fill="#0d251f" opacity=".23"/>
+  <rect x="272" y="78" width="96" height="60" rx="20" fill="#243a38"/>
+  <rect x="252" y="126" width="136" height="236" rx="60" fill="url(#steel)" stroke="#fffaf0" stroke-width="8"/>
+  <path d="M278 166h84M276 292h88" stroke="#243a38" stroke-width="8" opacity=".2" stroke-linecap="round"/>
+  <path d="M392 92c58 20 86 68 78 122" fill="none" stroke="#fffaf0" stroke-width="14" stroke-linecap="round" opacity=".35"/>
+</svg>

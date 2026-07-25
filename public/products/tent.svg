@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460" role="img" aria-label="Two person camping tent">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#d8decf"/>
+      <stop offset="1" stop-color="#59745a"/>
+    </linearGradient>
+    <linearGradient id="tent" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#f0b45b"/>
+      <stop offset="1" stop-color="#9b4b28"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="460" fill="url(#bg)"/>
+  <path d="M0 322c144-46 292-35 640-78v216H0z" fill="#183229" opacity=".22"/>
+  <path d="M132 312l118-150 258 150z" fill="url(#tent)" stroke="#fff5dd" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M250 162l-20 150h278z" fill="#c86837" opacity=".86"/>
+  <path d="M270 312l82-104 80 104z" fill="#2a2119" opacity=".72"/>
+  <path d="M250 162L94 312M250 162l296 150M78 330h484" stroke="#fff5dd" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="116" cy="116" r="42" fill="#fff5dd" opacity=".35"/>
+</svg>

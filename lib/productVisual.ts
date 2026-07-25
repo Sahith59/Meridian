@@ -16,3 +16,18 @@ export function gradientFor(category: string): string {
 export function categorySlug(category: string): string {
   return category.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 }
+
+export const PRODUCT_IMAGES: Record<string, string> = {
+  p_1: "/products/earbuds.svg",
+  p_2: "/products/mugs.svg",
+  p_3: "/products/jacket.svg",
+  p_4: "/products/bottle.svg",
+  p_5: "/products/tent.svg",
+  p_6: "/products/shoes.svg",
+  p_7: "/products/speaker.svg",
+  p_8: "/products/cookware.svg",
+};
+
+export function imageForProduct(productId: string): string {
+  return PRODUCT_IMAGES[productId] ?? "/products/earbuds.svg";
+}

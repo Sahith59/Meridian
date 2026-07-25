@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460" role="img" aria-label="Ceramic coffee mug set">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#f5e4c8"/>
+      <stop offset="1" stop-color="#b98238"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="460" fill="url(#bg)"/>
+  <path d="M0 340c142-70 272-78 640-20v140H0z" fill="#fff7e7" opacity=".36"/>
+  <ellipse cx="326" cy="360" rx="210" ry="38" fill="#3a2716" opacity=".18"/>
+  <g stroke="#5a3817" stroke-width="10">
+    <path d="M173 166h132v132c0 42-31 70-66 70s-66-28-66-70z" fill="#fffaf0"/>
+    <path d="M305 205h34c29 0 51 23 51 52s-22 52-51 52h-34" fill="none"/>
+    <path d="M342 138h112v116c0 39-27 64-56 64s-56-25-56-64z" fill="#f6ddad"/>
+    <path d="M454 174h28c25 0 43 20 43 45s-18 45-43 45h-28" fill="none"/>
+  </g>
+  <path d="M198 160c32-28 78-28 106 0M364 132c28-21 65-21 88 0" fill="none" stroke="#fffaf0" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+</svg>

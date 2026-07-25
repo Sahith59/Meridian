@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShoppingBag } from "lucide-react";
+import { ArrowRight, ShoppingBag } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("alice@northwind.test");
-  const [password, setPassword] = useState("alice-pw");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -33,11 +33,15 @@ export default function LoginPage() {
   return (
     <div className="auth-shell">
       <div className="auth-card">
-        <span className="brand-mark">
-          <ShoppingBag size={16} />
-        </span>
+        <a className="auth-brand" href="/">
+          <span className="brand-mark">
+            <ShoppingBag size={16} />
+          </span>
+          Meridian
+        </a>
+        <p className="eyebrow">Member access</p>
         <h1>Welcome back</h1>
-        <p className="hint">Log in to your Meridian account.</p>
+        <p className="hint">Access your order desk, receipts, and store workspace.</p>
 
         <form className="stack" onSubmit={onSubmit}>
           <div>
@@ -56,20 +60,13 @@ export default function LoginPage() {
           </div>
           {error && <p className="error">{error}</p>}
           <button type="submit" disabled={busy}>
-            {busy ? "Logging in..." : "Log in"}
+            {busy ? "Logging in..." : <>Log in <ArrowRight size={16} /></>}
           </button>
         </form>
 
         <p className="auth-switch">
           New here? <a href="/signup">Create an account</a>
         </p>
-
-        <div className="seed-hint">
-          Seeded accounts: <code>alice@northwind.test</code> / <code>alice-pw</code> &middot;{" "}
-          <code>bob@northwind.test</code> / <code>bob-pw</code> &middot;{" "}
-          <code>carol@bluebird.test</code> / <code>carol-pw</code> &middot;{" "}
-          <code>dana@northwind.test</code> / <code>dana-pw</code> (staff)
-        </div>
       </div>
     </div>
   );

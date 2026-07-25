@@ -120,7 +120,7 @@ export default function Sidebar({ user }: { user: NavUser }) {
             <Link href="/login" className="sidebar-link">
               Log in
             </Link>
-            <Link href="/signup" className="btn" style={{ marginTop: "0.5rem", justifyContent: "center" }}>
+            <Link href="/signup" className="sidebar-join">
               Sign up
             </Link>
           </div>

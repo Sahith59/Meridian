@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShoppingBag } from "lucide-react";
+import { ArrowRight, ShoppingBag } from "lucide-react";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -35,11 +35,15 @@ export default function SignupPage() {
   return (
     <div className="auth-shell">
       <div className="auth-card">
-        <span className="brand-mark">
-          <ShoppingBag size={16} />
-        </span>
+        <a className="auth-brand" href="/">
+          <span className="brand-mark">
+            <ShoppingBag size={16} />
+          </span>
+          Meridian
+        </a>
+        <p className="eyebrow">New member</p>
         <h1>Create your account</h1>
-        <p className="hint">Join a store and start shopping.</p>
+        <p className="hint">Join a partner store and start tracking your purchases.</p>
 
         <form className="stack" onSubmit={onSubmit}>
           <div>
@@ -69,7 +73,7 @@ export default function SignupPage() {
           </div>
           {error && <p className="error">{error}</p>}
           <button type="submit" disabled={busy}>
-            {busy ? "Creating account..." : "Sign up"}
+            {busy ? "Creating account..." : <>Create account <ArrowRight size={16} /></>}
           </button>
         </form>
 

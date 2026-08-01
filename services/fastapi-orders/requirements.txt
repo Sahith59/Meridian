@@ -1,0 +1,3 @@
+boldsec[fastapi]
+fastapi
+uvicorn[standard]

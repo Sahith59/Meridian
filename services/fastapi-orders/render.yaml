@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: meridian-fastapi-orders
+    runtime: python
+    plan: free
+    buildCommand: pip install -r services/fastapi-orders/requirements.txt
+    startCommand: cd services/fastapi-orders && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: BOLD_INGEST_URL
+        sync: false
+      - key: BOLD_INGEST_KEY
+        sync: false
+      - key: BOLD_OWNER_FIELDS
+        value: owner_id

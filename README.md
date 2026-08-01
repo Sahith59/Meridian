@@ -20,6 +20,8 @@ tax, shipping address, masked card number - the math actually adds up).
 | BOPLA (mass assignment) | `PATCH /api/profile` | `PATCH /api/profile/secure` |
 | Tenant isolation | `GET /api/stores/[storeId]/orders/[id]` | `.../secure` |
 | Missing authorization | `GET /api/orders/[id]/receipt` | `GET /api/orders/[id]/invoice` |
+| Supabase RLS | `GET /api/supabase-documents/[id]` | `GET /api/supabase-notes/self` |
+| FastAPI BOLA subservice | `services/fastapi-orders` | `GET /api/orders/[id]/secure` |
 | (public, must never be flagged) | `GET /api/storefront` | - |
 
 ## Run it
@@ -50,8 +52,72 @@ at all.
    BOLD_OWNER_FIELDS=customerId
    BOLD_SENSITIVE_FIELDS=role,storeCredit
    BOLD_TENANT_FIELDS=storeId
+   NEXT_PUBLIC_SUPABASE_URL=...
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
    ```
 3. Restart `npm run dev`.
+
+## Supabase RLS test surface
+
+Meridian includes a server-side Supabase RLS test surface. It is part of the deployed Vercel app,
+but it requires your own hosted Supabase project.
+
+1. Create a Supabase project.
+2. Run `supabase/migrations/0001_bold_rls_test.sql` in Supabase SQL Editor.
+3. Create two Supabase Auth users, user A and user B.
+4. Copy their Auth UUIDs.
+5. Seed one clean note for user A and one intentionally exposed document for user B:
+   ```sql
+   insert into notes (owner_id, body)
+   values ('USER_A_UUID', 'Private note owned by user A');
+
+   insert into documents (owner_id, body)
+   values ('USER_B_UUID', 'Private document owned by user B');
+
+   select * from documents;
+   ```
+6. Put `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in Vercel.
+7. Make sure Vercel also has `BOLD_OWNER_FIELDS=customerId,owner_id` so BoLD can read both
+   Meridian's existing order owner field and Supabase's RLS owner field.
+
+Supabase test routes:
+
+```txt
+POST /api/supabase-auth/login
+POST /api/supabase-auth/logout
+GET  /api/supabase-notes/self
+GET  /api/supabase-documents/{USER_B_DOCUMENT_ID}
+```
+
+The clean control is `/api/supabase-notes/self`. The intentional leak is
+`/api/supabase-documents/{USER_B_DOCUMENT_ID}` when logged in as user A.
+
+## FastAPI subservice
+
+Meridian also includes a Python FastAPI subservice at `services/fastapi-orders`. This code lives in
+the Meridian repo, but it must be deployed separately to Render, Railway, or Fly because Vercel's
+Next.js deployment does not run Python ASGI services.
+
+FastAPI seed:
+
+| Order | Owner | Amount |
+|---|---|---:|
+| `1` | `userA` | `125.50` |
+| `2` | `userB` | `249.99` |
+
+FastAPI BOLA trigger after deploying that subservice:
+
+```bash
+curl -H "X-User-Id: userA" https://YOUR_FASTAPI_SERVICE_URL/api/orders/2
+```
+
+Set these env vars on the Python host:
+
+```env
+BOLD_INGEST_URL=...
+BOLD_INGEST_KEY=...
+BOLD_OWNER_FIELDS=owner_id
+```
 
 ## Testing plan
 
